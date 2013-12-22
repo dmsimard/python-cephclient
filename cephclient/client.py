@@ -120,7 +120,7 @@ class CephClient(object):
 
         return map[key]
 
-    def log_wrapper(self, verbosity = False):
+    def log_wrapper(self):
         """
         Wrapper to set logging parameters for output
         """
