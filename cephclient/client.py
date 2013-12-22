@@ -124,10 +124,10 @@ class CephClient(object):
         """
         Wrapper to set logging parameters for output
         """
-        log = logging.getLogger("client.py")
+        log = logging.getLogger('client.py')
 
         # Set the log format and log level
-        if self.params["debug"]:
+        if self.params['debug']:
             log.setLevel(logging.DEBUG)
         else:
             log.setLevel(logging.INFO)
