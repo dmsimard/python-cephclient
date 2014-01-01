@@ -15,8 +15,19 @@
 #   Author: David Moreau Simard <moi@dmsimard.com>
 #
 
-class UrlNotMappedException(Exception):
+class FunctionNotImplemented(Exception):
     """
-    Unmapped URL in the client
+    Function not yet finished
     """
-    pass
+    def __str__(self):
+        return "This function is not yet available/completed."
+
+class MissingRequiredArgument(Exception):
+    """
+    Called a function without a required argument
+    """
+    def __init__(self, argument):
+        self.argument = argument
+
+    def __str__(self):
+        return "Missing a required argument: {0}".format(self.argument)

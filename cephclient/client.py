@@ -26,8 +26,6 @@ A ceph-rest-api python interface that handles REST calls and responses.
 import logging
 import requests
 
-from cephclient import exceptions
-
 try:
     import json
 except ImportError:
@@ -35,12 +33,12 @@ except ImportError:
 
 class CephClient(object):
 
-    USER_AGENT = 'python-cephclient'
-
     def __init__(self, **params):
         """
         Initialize the class, get the necessary parameters
         """
+        self.user_agent = 'python-cephclient'
+
         self.params = params
         self.log = self.log_wrapper()
 
@@ -54,7 +52,7 @@ class CephClient(object):
 
     def _request(self, url, method, **kwargs):
         kwargs.setdefault('headers', kwargs.get('headers', {}))
-        kwargs['headers']['User-Agent'] = self.USER_AGENT
+        kwargs['headers']['User-Agent'] = self.user_agent
         kwargs['headers']['Accept'] = 'application/json'
         if 'body' in kwargs:
             kwargs['headers']['Content-Type'] = 'application/json'
@@ -95,31 +93,6 @@ class CephClient(object):
     def delete(self, url, **kwargs):
         return self._request(url, 'DELETE', **kwargs)
 
-    @staticmethod
-    def urls(key):
-        """
-        Provides a map of available URLs through more convenient keys
-        """
-        map = {
-            'fsid': 'fsid',
-            'cluster_health': 'health',
-            'monitor_status': 'mon_status',
-            'osd_listids': 'osd/ls',
-            'osd_lspools': 'osd/lspools',
-            'osd_tree':  'osd/tree',
-            'pg_status': 'pg/stat',
-            'disk_free': 'df',
-            'osd_stat': 'osd/stat',
-            'report': 'report',
-            'osd_details': 'osd/dump',
-            'osd_perf': 'osd/perf',
-        }
-
-        if key not in map:
-            raise exceptions.UrlNotMappedException()
-
-        return map[key]
-
     def log_wrapper(self):
         """
         Wrapper to set logging parameters for output
@@ -127,12 +100,13 @@ class CephClient(object):
         log = logging.getLogger('client.py')
 
         # Set the log format and log level
-        if self.params['debug']:
+        try:
+            debug = self.params["debug"]
             log.setLevel(logging.DEBUG)
-        else:
+        except KeyError as e:
             log.setLevel(logging.INFO)
 
-        # Set the log format. Also, error and critical log messages should be sent to stderr
+        # Set the log format.
         stream = logging.StreamHandler()
         logformat = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                                       datefmt='%b %d %H:%M:%S')
