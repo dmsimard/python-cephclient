@@ -11,6 +11,7 @@ TODO
 - Finish the GET methods
 - Implement POST, PUT and DELETE methods
 - Support plain text, XML AND JSON responses
+- Add CLI support ?
 - Documentation
 
 CLIENT USAGE
