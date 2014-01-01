@@ -5,21 +5,51 @@ A client library in python for the Ceph REST API.
 
 This is currently a work in progress.
 
-USAGE
+TODO
 =================
 
+- Finish the GET methods
+- Implement POST, PUT and DELETE methods
+- Support plain text, XML AND JSON responses
+- Documentation
+
+CLIENT USAGE
+=================
+
+The client takes care of sending calls to the API through HTTP and handle the
+response.
+
     client = CephClient(
-        debug = True,
         endpoint = 'http://apiserver:5000/api/v0.1/',
     )
 
-    response, body = client.get(client.urls('fsid'), body = True)
+    response, body = client.get('fsid', body = True)
     print(json.dumps(body, indent=4, separators=(',', ': ')))
 
-    #####
+    ====
 
-    Dec 21 16:51:46 - client.py - DEBUG - Params: {'debug': True, 'endpoint': 'http://apiserver:5000/api/v0.1/'}
-    Dec 21 16:51:46 - client.py - DEBUG - Requesting URL: http://apiserver:5000/api/v0.1/fsid - {'headers': {'Content-Type': 'application/json', 'Accept': 'application/json', 'User-Agent': 'python-cephclient'}, 'data': 'true'}
+    {
+        "status": "OK",
+        "output": {
+            "fsid": "d5252e7d-75bc-4083-85ed-fe51fa83f62b"
+        }
+    }
+
+WRAPPER USAGE
+=================
+
+The wrapper extends the client and provides helper functions to communicate with
+the API.
+
+    wrapper = CephWrapper(
+        endpoint = 'http://apiserver:5000/api/v0.1/',
+    )
+
+    response, body = wrapper.get_fsid(body = True)
+    print(json.dumps(body, indent=4, separators=(',', ': ')))
+
+    ====
+
     {
         "status": "OK",
         "output": {
