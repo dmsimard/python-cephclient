@@ -31,18 +31,109 @@ class CephWrapper(client.CephClient):
     ###
     # root GET calls
     ###
-
-    def get_health(self, **kwargs):
-        return self.get('health', **kwargs)
-
     def get_df(self, **kwargs):
+        # TODO: Implement detail optional argument
         return self.get('df', **kwargs)
 
     def get_fsid(self, **kwargs):
         return self.get('fsid', **kwargs)
 
+    def get_health(self, **kwargs):
+        # TODO: Implement detail optional argument
+        return self.get('health', **kwargs)
+
+    def get_quorum_status(self, **kwargs):
+        return self.get('quorum_status', **kwargs)
+
     def get_report(self, **kwargs):
         return self.get('report', **kwargs)
+
+    def get_status(self, **kwargs):
+        return self.get('status', **kwargs)
+
+    ###
+    # auth GET calls
+    ###
+    def auth_export(self, **kwargs):
+        try:
+            entity = kwargs['entity']
+            del kwargs['entity']
+        except KeyError as e:
+            raise exceptions.MissingRequiredArgument(e)
+
+        return self.get('auth/export?entity={0}'.format(entity), **kwargs)
+
+    def auth_get(self, **kwargs):
+        try:
+            entity = kwargs['entity']
+            del kwargs['entity']
+        except KeyError as e:
+            raise exceptions.MissingRequiredArgument(e)
+
+        return self.get('auth/get?entity={0}'.format(entity), **kwargs)
+
+    def auth_get_key(self, **kwargs):
+        try:
+            entity = kwargs['entity']
+            del kwargs['entity']
+        except KeyError as e:
+            raise exceptions.MissingRequiredArgument(e)
+
+        return self.get('auth/get-key?entity={0}'.format(entity), **kwargs)
+
+    def auth_list(self, **kwargs):
+        return self.get('auth/list', **kwargs)
+
+    def auth_print_key(self, **kwargs):
+        try:
+            entity = kwargs['entity']
+            del kwargs['entity']
+        except KeyError as e:
+            raise exceptions.MissingRequiredArgument(e)
+
+        return self.get('auth/print-key?entity={0}'.format(entity), **kwargs)
+
+    ###
+    # config-key GET calls
+    ###
+    def config_key_exists(self, **kwargs):
+        try:
+            key = kwargs['key']
+            del kwargs['key']
+        except KeyError as e:
+            raise exceptions.MissingRequiredArgument(e)
+
+        return self.get('config-key/exists?key={0}'.format(key), **kwargs)
+
+    def config_key_get(self, **kwargs):
+        try:
+            key = kwargs['key']
+            del kwargs['key']
+        except KeyError as e:
+            raise exceptions.MissingRequiredArgument(e)
+
+        return self.get('config-key/get?key={0}'.format(key), **kwargs)
+
+    def config_key_list(self, **kwargs):
+        return self.get('config-key/list', **kwargs)
+
+    ###
+    # mds GET calls
+    ###
+
+    def mds_compat_show(self, **kwargs):
+        return self.get('mds/compat/show', **kwargs)
+
+    def mds_dump(self, **kwargs):
+        # TODO: Implement epoch optional argument
+        return self.get('mds/dump', **kwargs)
+
+    def mds_getmap(self, **kwargs):
+        # TODO: Implement epoch optional argument
+        return self.get('mds/getmap', **kwargs)
+
+    def mds_stat(self, **kwargs):
+        return self.get('mds/stat', **kwargs)
 
     ###
     # osd GET calls
@@ -146,7 +237,6 @@ class CephWrapper(client.CephClient):
     ###
     # pg GET calls
     ###
-
     def pg_debug(self, **kwargs):
         raise exceptions.FunctionNotImplemented()
 
