@@ -278,7 +278,13 @@ class CephWrapper(client.CephClient):
     # pg GET calls
     ###
     def pg_debug(self, **kwargs):
-        raise exceptions.FunctionNotImplemented()
+        try:
+            debugop = kwargs['debugop']
+            del kwargs['debugop']
+        except KeyError as e:
+            raise exceptions.MissingRequiredArgument(e)
+
+        return self.get('pg/debug?debugop={0}'.format(debugop), kwargs)
 
     def pg_dump(self, **kwargs):
         raise exceptions.FunctionNotImplemented()
