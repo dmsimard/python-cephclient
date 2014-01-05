@@ -32,15 +32,23 @@ class CephWrapper(client.CephClient):
     # root GET calls
     ###
     def get_df(self, **kwargs):
-        # TODO: Implement detail optional argument
-        return self.get('df', **kwargs)
+        try:
+            detail = kwargs['detail']
+            del kwargs['detail']
+            return self.get('df?detail={0}'.format(detail), **kwargs)
+        except KeyError as e:
+            return self.get('df', **kwargs)
 
     def get_fsid(self, **kwargs):
         return self.get('fsid', **kwargs)
 
     def get_health(self, **kwargs):
-        # TODO: Implement detail optional argument
-        return self.get('health', **kwargs)
+        try:
+            detail = kwargs['detail']
+            del kwargs['detail']
+            return self.get('health?detail={0}'.format(detail), **kwargs)
+        except KeyError as e:
+            return self.get('health', **kwargs)
 
     def get_quorum_status(self, **kwargs):
         return self.get('quorum_status', **kwargs)
@@ -125,12 +133,20 @@ class CephWrapper(client.CephClient):
         return self.get('mds/compat/show', **kwargs)
 
     def mds_dump(self, **kwargs):
-        # TODO: Implement epoch optional argument
-        return self.get('mds/dump', **kwargs)
+        try:
+            epoch = kwargs['epoch']
+            del kwargs['epoch']
+            return self.get('mds/dump?epoch={0}'.format(epoch), **kwargs)
+        except KeyError as e:
+            return self.get('mds/dump', **kwargs)
 
     def mds_getmap(self, **kwargs):
-        # TODO: Implement epoch optional argument
-        return self.get('mds/getmap', **kwargs)
+        try:
+            epoch = kwargs['epoch']
+            del kwargs['epoch']
+            return self.get('mds/getmap?epoch={0}'.format(epoch), **kwargs)
+        except KeyError as e:
+            return self.get('mds/getmap', **kwargs)
 
     def mds_stat(self, **kwargs):
         return self.get('mds/stat', **kwargs)
@@ -154,8 +170,12 @@ class CephWrapper(client.CephClient):
         return self.get('osd/crush/rule/ls', **kwargs)
 
     def osd_dump(self, **kwargs):
-        # TODO: Implement epoch optional argument
-        return self.get('osd/dump', **kwargs)
+        try:
+            epoch = kwargs['epoch']
+            del kwargs['epoch']
+            return self.get('osd/dump?epoch={0}'.format(epoch), **kwargs)
+        except KeyError as e:
+            return self.get('osd/dump', **kwargs)
 
     def osd_find(self, **kwargs):
         try:
@@ -178,12 +198,20 @@ class CephWrapper(client.CephClient):
         return self.get('osd/getmaxosd', **kwargs)
 
     def osd_ls(self, **kwargs):
-        # TODO: Implement epoch optional argument
-        return self.get('osd/ls', **kwargs)
+        try:
+            epoch = kwargs['epoch']
+            del kwargs['epoch']
+            return self.get('osd/ls?epoch={0}'.format(epoch), **kwargs)
+        except KeyError as e:
+            return self.get('osd/ls', **kwargs)
 
     def osd_lspools(self, **kwargs):
-        # TODO: Implement auid optional argument
-        return self.get('osd/lspools', **kwargs)
+        try:
+            auid = kwargs['auid']
+            del kwargs['auid']
+            return self.get('osd/lspools?auid={0}'.format(auid), **kwargs)
+        except KeyError as e:
+            return self.get('osd/lspools', **kwargs)
 
     def osd_map(self, **kwargs):
         raise exceptions.FunctionNotImplemented()
@@ -206,22 +234,34 @@ class CephWrapper(client.CephClient):
             pool, var), **kwargs)
 
     def osd_pool_stats(self, **kwargs):
-        # TODO: Implement pool optional argument
-        return self.get('osd/pool/stats', **kwargs)
+        try:
+            pool = kwargs['pool']
+            del kwargs['pool']
+            return self.get('osd/pool/stats?pool={0}'.format(pool), **kwargs)
+        except KeyError as e:
+            return self.get('osd/pool/stats', **kwargs)
 
     def osd_stat(self, **kwargs):
         return self.get('osd/stat', **kwargs)
 
     def osd_tree(self, **kwargs):
-        # TODO: Implement epoch optional argument
-        return self.get('osd/tree', **kwargs)
+        try:
+            epoch = kwargs['epoch']
+            del kwargs['epoch']
+            return self.get('osd/tree?epoch={0}'.format(epoch), **kwargs)
+        except KeyError as e:
+            return self.get('osd/tree', **kwargs)
 
     ###
     # mon GET calls
     ###
     def mon_dump(self, **kwargs):
-        # TODO: Implement epoch optional argument
-        return self.get('mon/dump', **kwargs)
+        try:
+            epoch = kwargs['epoch']
+            del kwargs['epoch']
+            return self.get('mon/dump?epoch={0}'.format(epoch), **kwargs)
+        except KeyError as e:
+            return self.get('mon/dump', **kwargs)
 
     def mon_getmap(self, **kwargs):
         # Could not get this to work yet
