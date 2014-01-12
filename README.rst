@@ -1,7 +1,7 @@
 python-cephclient
 =================
 
-A client library in python for the Ceph REST API.
+A client library in python for the Ceph REST API (``ceph-rest-api``).
 
 This is currently a work in progress.
 
@@ -10,9 +10,6 @@ TODO
 
 - Finish the GET methods
 - Implement POST, PUT and DELETE methods
-- Publish on pypi
-- ~~Support plain text, XML AND JSON responses~~
-- Add CLI support ?
 - Documentation
 
 CLIENT
