@@ -10,43 +10,44 @@ TODO
 
 - Finish the GET methods
 - Implement POST, PUT and DELETE methods
-- Support plain text, XML AND JSON responses
+- ~~Support plain text, XML AND JSON responses~~
 - Add CLI support ?
 - Documentation
 
-CLIENT USAGE
+CLIENT
 =================
 
 The client takes care of sending calls to the API through HTTP and handle the
-response.
+responses.
 
-    client = CephClient(
-        endpoint = 'http://apiserver:5000/api/v0.1/',
-    )
-
-    response, body = client.get('fsid', body = True)
-    print(json.dumps(body, indent=4, separators=(',', ': ')))
-
-    ====
-
-    {
-        "status": "OK",
-        "output": {
-            "fsid": "d5252e7d-75bc-4083-85ed-fe51fa83f62b"
-        }
-    }
-
-WRAPPER USAGE
+WRAPPER
 =================
 
 The wrapper extends the client and provides helper functions to communicate with
 the API.
 
+HOW TO USE
+=================
+
+Instanciate CephWrapper:
+
     wrapper = CephWrapper(
         endpoint = 'http://apiserver:5000/api/v0.1/',
+        debug = True # Optionally increases the verbosity of the client
     )
 
-    response, body = wrapper.get_fsid(body = True)
+Do your request and specify the reponse type you are expecting:
+
+    response, body = wrapper.get_fsid(body = 'text')
+    print(response)
+
+    ====
+
+    d5252e7d-75bc-4083-85ed-fe51fa83f62b
+
+    ====
+
+    response, body = wrapper.get_fsid(body = 'json')
     print(json.dumps(body, indent=4, separators=(',', ': ')))
 
     ====
@@ -57,3 +58,21 @@ the API.
             "fsid": "d5252e7d-75bc-4083-85ed-fe51fa83f62b"
         }
     }
+
+    ====
+
+    response, body = wrapper.get_fsid(body = 'xml')
+    print(etree.tostring(body, pretty_print=True))
+
+    ====
+
+    <response>
+      <output>
+        <fsid><fsid>d5252e7d-75bc-4083-85ed-fe51fa83f62b</fsid></fsid>
+      </output>
+      <status>
+        OK
+      </status>
+    </response>
+
+    ====
