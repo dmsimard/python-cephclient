@@ -37,7 +37,11 @@ Instanciate CephWrapper:
         debug = True # Optionally increases the verbosity of the client
     )
 
-Do your request and specify the reponse type you are expecting:
+Do your request and specify the reponse type you are expecting.
+
+Either 'json', 'xml' or 'text' (default) are available.
+
+__text__
 
     response, body = wrapper.get_fsid(body = 'text')
     print(response)
@@ -46,7 +50,8 @@ Do your request and specify the reponse type you are expecting:
 
     d5252e7d-75bc-4083-85ed-fe51fa83f62b
 
-    ====
+
+__json__
 
     response, body = wrapper.get_fsid(body = 'json')
     print(json.dumps(body, indent=4, separators=(',', ': ')))
@@ -60,7 +65,8 @@ Do your request and specify the reponse type you are expecting:
         }
     }
 
-    ====
+
+__xml__
 
     response, body = wrapper.get_fsid(body = 'xml')
     print(etree.tostring(body, pretty_print=True))
@@ -75,5 +81,3 @@ Do your request and specify the reponse type you are expecting:
         OK
       </status>
     </response>
-
-    ====
