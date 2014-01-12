@@ -18,11 +18,6 @@
 import cephclient.client as client
 import cephclient.exceptions as exceptions
 
-try:
-    import json
-except ImportError:
-    import simplejson as json
-
 class CephWrapper(client.CephClient):
     def __init__(self, **params):
         super(CephWrapper, self).__init__(**params)
