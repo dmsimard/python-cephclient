@@ -295,6 +295,9 @@ class CephWrapper(client.CephClient):
     def pg_dump_pools_json(self, **kwargs):
         raise exceptions.FunctionNotImplemented()
 
+    def pg_dump_stuck(self, **kwargs):
+        raise exceptions.FunctionNotImplemented()
+
     def pg_getmap(self, **kwargs):
         # Could not get this to work yet
         raise exceptions.FunctionNotImplemented()
