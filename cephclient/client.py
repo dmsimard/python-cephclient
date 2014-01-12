@@ -58,6 +58,7 @@ class CephClient(object):
 
         self.http = requests.Session()
 
+
     def _request(self, url, method, **kwargs):
         if self.timeout is not None:
             kwargs.setdefault('timeout', self.timeout)
@@ -109,17 +110,22 @@ class CephClient(object):
 
         return resp, body
 
+
     def get(self, url, **kwargs):
         return self._request(url, 'GET', **kwargs)
+
 
     def post(self, url, **kwargs):
         return self._request(url, 'POST', **kwargs)
 
+
     def put(self, url, **kwargs):
         return self._request(url, 'PUT', **kwargs)
 
+
     def delete(self, url, **kwargs):
         return self._request(url, 'DELETE', **kwargs)
+
 
     def log_wrapper(self):
         """
