@@ -1,13 +1,10 @@
-python-cephclient
-==================================================
-
 A client library in python for the Ceph REST API (``ceph-rest-api``).
 
 This is currently a work in progress.
 
 INSTALL
 ==================================================
-Install the package through pip:::
+Install the package through pip::
 
     pip install python-cephclient
 
