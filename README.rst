@@ -1,33 +1,36 @@
 python-cephclient
-=================
+==================================================
 
 A client library in python for the Ceph REST API (``ceph-rest-api``).
 
 This is currently a work in progress.
 
-TODO
-=================
+INSTALL
+==================================================
+Install the package through pip:::
 
-- Finish the GET methods
-- Implement POST, PUT and DELETE methods
-- Documentation
+    pip install python-cephclient
 
-CLIENT
-=================
+
+ABOUT
+==================================================
+
+Client
+----------------
 
 The client takes care of sending calls to the API through HTTP and handle the
 responses.
 
-WRAPPER
-=================
+Wrapper
+----------------
 
 The wrapper extends the client and provides helper functions to communicate with
 the API.
 
 HOW TO USE
-=================
+==================================================
 
-Instanciate CephWrapper:
+Instanciate CephWrapper::
 
     wrapper = CephWrapper(
         endpoint = 'http://apiserver:5000/api/v0.1/',
@@ -36,9 +39,9 @@ Instanciate CephWrapper:
 
 Do your request and specify the reponse type you are expecting.
 
-Either 'json', 'xml' or 'text' (default) are available.
+Either ``json``, ``xml`` or ``text`` (default) are available.
 
-__text__
+text::
 
     response, body = wrapper.get_fsid(body = 'text')
     print(response)
@@ -48,7 +51,7 @@ __text__
     d5252e7d-75bc-4083-85ed-fe51fa83f62b
 
 
-__json__
+json::
 
     response, body = wrapper.get_fsid(body = 'json')
     print(json.dumps(body, indent=4, separators=(',', ': ')))
@@ -63,7 +66,7 @@ __json__
     }
 
 
-__xml__
+xml::
 
     response, body = wrapper.get_fsid(body = 'xml')
     print(etree.tostring(body, pretty_print=True))
@@ -78,3 +81,10 @@ __xml__
         OK
       </status>
     </response>
+
+TODO
+==================================================
+
+- Finish the GET methods
+- Implement PUT (write) methods
+- Documentation
