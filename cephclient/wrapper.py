@@ -31,23 +31,19 @@ class CephWrapper(client.CephClient):
     ###
     # root GET calls
     ###
-    def get_df(self, **kwargs):
-        try:
-            detail = kwargs['detail']
-            del kwargs['detail']
+    def get_df(self, detail = None, **kwargs):
+        if detail is not None:
             return self.get('df?detail={0}'.format(detail), **kwargs)
-        except KeyError as e:
+        else:
             return self.get('df', **kwargs)
 
     def get_fsid(self, **kwargs):
         return self.get('fsid', **kwargs)
 
-    def get_health(self, **kwargs):
-        try:
-            detail = kwargs['detail']
-            del kwargs['detail']
+    def get_health(self, detail = None, **kwargs):
+        if detail is not None:
             return self.get('health?detail={0}'.format(detail), **kwargs)
-        except KeyError as e:
+        else:
             return self.get('health', **kwargs)
 
     def get_quorum_status(self, **kwargs):
@@ -62,64 +58,28 @@ class CephWrapper(client.CephClient):
     ###
     # auth GET calls
     ###
-    def auth_export(self, **kwargs):
-        try:
-            entity = kwargs['entity']
-            del kwargs['entity']
-        except KeyError as e:
-            raise exceptions.MissingRequiredArgument(e)
-
+    def auth_export(self, entity, **kwargs):
         return self.get('auth/export?entity={0}'.format(entity), **kwargs)
 
-    def auth_get(self, **kwargs):
-        try:
-            entity = kwargs['entity']
-            del kwargs['entity']
-        except KeyError as e:
-            raise exceptions.MissingRequiredArgument(e)
-
+    def auth_get(self, entity, **kwargs):
         return self.get('auth/get?entity={0}'.format(entity), **kwargs)
 
-    def auth_get_key(self, **kwargs):
-        try:
-            entity = kwargs['entity']
-            del kwargs['entity']
-        except KeyError as e:
-            raise exceptions.MissingRequiredArgument(e)
-
+    def auth_get_key(self, entity, **kwargs):
         return self.get('auth/get-key?entity={0}'.format(entity), **kwargs)
 
     def auth_list(self, **kwargs):
         return self.get('auth/list', **kwargs)
 
-    def auth_print_key(self, **kwargs):
-        try:
-            entity = kwargs['entity']
-            del kwargs['entity']
-        except KeyError as e:
-            raise exceptions.MissingRequiredArgument(e)
-
+    def auth_print_key(self, entity, **kwargs):
         return self.get('auth/print-key?entity={0}'.format(entity), **kwargs)
 
     ###
     # config-key GET calls
     ###
-    def config_key_exists(self, **kwargs):
-        try:
-            key = kwargs['key']
-            del kwargs['key']
-        except KeyError as e:
-            raise exceptions.MissingRequiredArgument(e)
-
+    def config_key_exists(self, key, **kwargs):
         return self.get('config-key/exists?key={0}'.format(key), **kwargs)
 
-    def config_key_get(self, **kwargs):
-        try:
-            key = kwargs['key']
-            del kwargs['key']
-        except KeyError as e:
-            raise exceptions.MissingRequiredArgument(e)
-
+    def config_key_get(self, key, **kwargs):
         return self.get('config-key/get?key={0}'.format(key), **kwargs)
 
     def config_key_list(self, **kwargs):
@@ -132,20 +92,16 @@ class CephWrapper(client.CephClient):
     def mds_compat_show(self, **kwargs):
         return self.get('mds/compat/show', **kwargs)
 
-    def mds_dump(self, **kwargs):
-        try:
-            epoch = kwargs['epoch']
-            del kwargs['epoch']
+    def mds_dump(self, epoch = None, **kwargs):
+        if epoch is not None:
             return self.get('mds/dump?epoch={0}'.format(epoch), **kwargs)
-        except KeyError as e:
+        else:
             return self.get('mds/dump', **kwargs)
 
-    def mds_getmap(self, **kwargs):
-        try:
-            epoch = kwargs['epoch']
-            del kwargs['epoch']
+    def mds_getmap(self, epoch = None, **kwargs):
+        if epoch is not None:
             return self.get('mds/getmap?epoch={0}'.format(epoch), **kwargs)
-        except KeyError as e:
+        else:
             return self.get('mds/getmap', **kwargs)
 
     def mds_stat(self, **kwargs):
@@ -169,21 +125,13 @@ class CephWrapper(client.CephClient):
     def osd_crush_rule_ls(self, **kwargs):
         return self.get('osd/crush/rule/ls', **kwargs)
 
-    def osd_dump(self, **kwargs):
-        try:
-            epoch = kwargs['epoch']
-            del kwargs['epoch']
+    def osd_dump(self, epoch = None, **kwargs):
+        if epoch is not None:
             return self.get('osd/dump?epoch={0}'.format(epoch), **kwargs)
-        except KeyError as e:
+        else:
             return self.get('osd/dump', **kwargs)
 
-    def osd_find(self, **kwargs):
-        try:
-            id = kwargs['id']
-            del kwargs['id']
-        except KeyError as e:
-            raise exceptions.MissingRequiredArgument(e)
-
+    def osd_find(self, id, **kwargs):
         return self.get('osd/find?id={0}'.format(id), **kwargs)
 
     def osd_getcrushmap(self, **kwargs):
@@ -197,20 +145,16 @@ class CephWrapper(client.CephClient):
     def osd_getmaxosd(self, **kwargs):
         return self.get('osd/getmaxosd', **kwargs)
 
-    def osd_ls(self, **kwargs):
-        try:
-            epoch = kwargs['epoch']
-            del kwargs['epoch']
+    def osd_ls(self, epoch = None, **kwargs):
+        if epoch is not None:
             return self.get('osd/ls?epoch={0}'.format(epoch), **kwargs)
-        except KeyError as e:
+        else:
             return self.get('osd/ls', **kwargs)
 
-    def osd_lspools(self, **kwargs):
-        try:
-            auid = kwargs['auid']
-            del kwargs['auid']
+    def osd_lspools(self, auid = None, **kwargs):
+        if auid is not None:
             return self.get('osd/lspools?auid={0}'.format(auid), **kwargs)
-        except KeyError as e:
+        else:
             return self.get('osd/lspools', **kwargs)
 
     def osd_map(self, **kwargs):
@@ -219,48 +163,32 @@ class CephWrapper(client.CephClient):
     def osd_perf(self, **kwargs):
         return self.get('osd/perf', **kwargs)
 
-    def osd_pool_get(self, **kwargs):
-        try:
-            pool = kwargs['pool']
-            del kwargs['pool']
-
-            var = kwargs['var']
-            del kwargs['var']
-
-        except KeyError as e:
-            raise exceptions.MissingRequiredArgument(e)
-
+    def osd_pool_get(self, pool, var, **kwargs):
         return self.get('osd/pool/get?pool={0}&var={1}'.format(
             pool, var), **kwargs)
 
-    def osd_pool_stats(self, **kwargs):
-        try:
-            pool = kwargs['pool']
-            del kwargs['pool']
-            return self.get('osd/pool/stats?pool={0}'.format(pool), **kwargs)
-        except KeyError as e:
+    def osd_pool_stats(self, name = None, **kwargs):
+        if name is not None:
+            return self.get('osd/pool/stats?name={0}'.format(name), **kwargs)
+        else:
             return self.get('osd/pool/stats', **kwargs)
 
     def osd_stat(self, **kwargs):
         return self.get('osd/stat', **kwargs)
 
-    def osd_tree(self, **kwargs):
-        try:
-            epoch = kwargs['epoch']
-            del kwargs['epoch']
+    def osd_tree(self, epoch = None, **kwargs):
+        if epoch is not None:
             return self.get('osd/tree?epoch={0}'.format(epoch), **kwargs)
-        except KeyError as e:
+        else:
             return self.get('osd/tree', **kwargs)
 
     ###
     # mon GET calls
     ###
-    def mon_dump(self, **kwargs):
-        try:
-            epoch = kwargs['epoch']
-            del kwargs['epoch']
+    def mon_dump(self, epoch = None, **kwargs):
+        if epoch is not None:
             return self.get('mon/dump?epoch={0}'.format(epoch), **kwargs)
-        except KeyError as e:
+        else:
             return self.get('mon/dump', **kwargs)
 
     def mon_getmap(self, **kwargs):
@@ -277,13 +205,7 @@ class CephWrapper(client.CephClient):
     ###
     # pg GET calls
     ###
-    def pg_debug(self, **kwargs):
-        try:
-            debugop = kwargs['debugop']
-            del kwargs['debugop']
-        except KeyError as e:
-            raise exceptions.MissingRequiredArgument(e)
-
+    def pg_debug(self, debugop, **kwargs):
         return self.get('pg/debug?debugop={0}'.format(debugop), kwargs)
 
     def pg_dump(self, **kwargs):
