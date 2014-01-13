@@ -8,13 +8,13 @@ ABOUT
 ==================================================
 
 Client
-----------------
+--------------------------------------------------
 
 The cephclient class takes care of sending calls to the API through HTTP and
 handle the responses. It supports queries for JSON, XML or plain text.
 
 Wrapper
-----------------
+--------------------------------------------------
 
 The wrapper class extends the client and provides helper functions to
 communicate with the API.
@@ -24,7 +24,7 @@ does.
 The wrapper exists for convenience.
 
 Development, Feedback, Bugs
-----------------
+--------------------------------------------------
 
 Want to contribute ? Feel free to send pull requests !
 
