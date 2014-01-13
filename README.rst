@@ -1,13 +1,8 @@
-A client library in python for the Ceph REST API (``ceph-rest-api``).
+python-cephclient is a python module to communicate with `Ceph's REST API`_ (``ceph-rest-api``).
+
+.. _Ceph's REST API: http://ceph.com/docs/master/man/8/ceph-rest-api/
 
 This is currently a work in progress.
-
-INSTALL
-==================================================
-Install the package through pip::
-
-    pip install python-cephclient
-
 
 ABOUT
 ==================================================
@@ -15,19 +10,43 @@ ABOUT
 Client
 ----------------
 
-The client takes care of sending calls to the API through HTTP and handle the
-responses.
+The cephclient class takes care of sending calls to the API through HTTP and
+handle the responses. It supports queries for JSON, XML or plain text.
 
 Wrapper
 ----------------
 
-The wrapper extends the client and provides helper functions to communicate with
-the API.
+The wrapper class extends the client and provides helper functions to
+communicate with the API.
+
+Nothing prevents you from calling the client directly exactly like the wrapper
+does.
+The wrapper exists for convenience.
+
+Development, Feedback, Bugs
+----------------
+
+Want to contribute ? Feel free to send pull requests !
+
+Have problems, bugs, feature ideas ?
+I am using the github `issue tracker`_ to manage them.
+
+.. _issue tracker: https://github.com/dmsimard/python-cephclient/issues
+
 
 HOW TO USE
 ==================================================
 
+Installation
+----------------
+Install the package through pip::
+
+    pip install python-cephclient
+
+
 Instanciate CephWrapper::
+
+    from cephclient import *
 
     wrapper = CephWrapper(
         endpoint = 'http://apiserver:5000/api/v0.1/',
@@ -78,10 +97,3 @@ xml::
         OK
       </status>
     </response>
-
-TODO
-==================================================
-
-- Finish the GET methods
-- Implement PUT (write) methods
-- Documentation
