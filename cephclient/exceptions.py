@@ -23,7 +23,7 @@ class FunctionNotImplemented(Exception):
         return "This function is not yet available/completed."
 
 
-class UnknownRequestType(Exception):
+class UnsupportedRequestType(Exception):
     """
     If a requested body type is not mapped
     """

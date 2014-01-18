@@ -74,7 +74,7 @@ class CephClient(object):
                 kwargs['headers']['Accept'] = 'application/octet-stream'
                 kwargs['headers']['Content-Type'] = 'application/octet-stream'
             else:
-                raise exceptions.UnknownRequestType()
+                raise exceptions.UnsupportedRequestType()
         except KeyError:
             # Default if body type is unspecified is text/plain
             kwargs['headers']['Accept'] = 'text/plain'
