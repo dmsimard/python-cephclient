@@ -91,9 +91,8 @@ xml::
 text::
 
     response, body = wrapper.get_fsid(body = 'text')
-    print(response)
+    print(body)
 
     ====
 
     d5252e7d-75bc-4083-85ed-fe51fa83f62b
-
