@@ -232,7 +232,9 @@ class CephWrapper(client.CephClient):
 
 
     def mon_stat(self, **kwargs):
-        # TODO: Seems broken ? Returns null.
+        supported_body_types = ['text', 'xml']
+        self._validate_body_type(kwargs['body'], supported_body_types)
+
         return self.get('mon/stat', **kwargs)
 
 
