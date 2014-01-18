@@ -259,20 +259,28 @@ class CephWrapper(client.CephClient):
         return self.get('pg/debug?debugop={0}'.format(debugop), kwargs)
 
 
-    def pg_dump(self, **kwargs):
-        return self.get('pg/dump', **kwargs)
+    def pg_dump(self, dumpcontents = None, **kwargs):
+        if dumpcontents is not None:
+            return self.get('pg/dump?dumpcontents={0}'.format(dumpcontents), **kwargs)
+        else:
+            return self.get('pg/dump', **kwargs)
 
-
-    def pg_dump_json(self, **kwargs):
-        return self.get('pg/dump_json', **kwargs)
+    def pg_dump_json(self, dumpcontents = None, **kwargs):
+        if dumpcontents is not None:
+            return self.get('pg/dump_json?dumpcontents={0}'.format(dumpcontents), **kwargs)
+        else:
+            return self.get('pg/dump_json', **kwargs)
 
 
     def pg_dump_pools_json(self, **kwargs):
         return self.get('pg/dump_pools_json', **kwargs)
 
 
-    def pg_dump_stuck(self, **kwargs):
-        return self.get('pg/dump_stuck', **kwargs)
+    def pg_dump_stuck(self, stuckops = None, **kwargs):
+        if stuckops is not None:
+            return self.get('pg/dump_stuck?stuckops={0}'.format(stuckops), **kwargs)
+        else:
+            return self.get('pg/dump_stuck', **kwargs)
 
 
     def pg_getmap(self, **kwargs):
