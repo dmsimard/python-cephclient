@@ -60,12 +60,6 @@ class CephClient(object):
 
 
     def _request(self, url, method, **kwargs):
-        if self.timeout is not None:
-            kwargs.setdefault('timeout', self.timeout)
-
-        kwargs.setdefault('headers', kwargs.get('headers', {}))
-        kwargs['headers']['User-Agent'] = self.user_agent
-
         try:
             if kwargs['body'] is 'json':
                 kwargs['headers']['Accept'] = 'application/json'
@@ -81,12 +75,27 @@ class CephClient(object):
                 kwargs['headers']['Content-Type'] = 'application/octet-stream'
             else:
                 raise exceptions.UnknownRequestType()
-
-            del kwargs['body']
         except KeyError:
             # Default if body type is unspecified is text/plain
             kwargs['headers']['Accept'] = 'text/plain'
             kwargs['headers']['Content-Type'] = 'text/plain'
+
+        # Optionally verify if requested body type is supported
+        try:
+            if kwargs['body'] not in kwargs['supported_body_types']:
+                raise exceptions.UnsupportedBodyType()
+            else:
+                del kwargs['supported_body_types']
+        except KeyError:
+            pass
+
+        del kwargs['body']
+
+        if self.timeout is not None:
+            kwargs.setdefault('timeout', self.timeout)
+
+        kwargs.setdefault('headers', kwargs.get('headers', {}))
+        kwargs['headers']['User-Agent'] = self.user_agent
 
         self.log.debug("{0} URL: {1}{2} - {3}".format(method,
                                                         self.endpoint,

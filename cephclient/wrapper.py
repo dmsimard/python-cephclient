@@ -23,17 +23,10 @@ class CephWrapper(client.CephClient):
         super(CephWrapper, self).__init__(**params)
         self.user_agent = 'python-cephclient-wrapper'
 
-    def _validate_body_type(self, type, supported):
-        if type not in supported:
-            raise exceptions.UnsupportedBodyType
-
     ###
     # root GET calls
     ###
     def get_df(self, detail = None, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         if detail is not None:
             return self.get('df?detail={0}'.format(detail), **kwargs)
         else:
@@ -41,16 +34,10 @@ class CephWrapper(client.CephClient):
 
 
     def get_fsid(self, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         return self.get('fsid', **kwargs)
 
 
     def get_health(self, detail = None, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         if detail is not None:
             return self.get('health?detail={0}'.format(detail), **kwargs)
         else:
@@ -58,23 +45,14 @@ class CephWrapper(client.CephClient):
 
 
     def get_quorum_status(self, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         return self.get('quorum_status', **kwargs)
 
 
     def get_report(self, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         return self.get('report', **kwargs)
 
 
     def get_status(self, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         return self.get('status', **kwargs)
 
 
@@ -82,37 +60,22 @@ class CephWrapper(client.CephClient):
     # auth GET calls
     ###
     def auth_export(self, entity, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         return self.get('auth/export?entity={0}'.format(entity), **kwargs)
 
 
     def auth_get(self, entity, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         return self.get('auth/get?entity={0}'.format(entity), **kwargs)
 
 
     def auth_get_key(self, entity, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         return self.get('auth/get-key?entity={0}'.format(entity), **kwargs)
 
 
     def auth_list(self, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         return self.get('auth/list', **kwargs)
 
 
     def auth_print_key(self, entity, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         return self.get('auth/print-key?entity={0}'.format(entity), **kwargs)
 
 
@@ -120,23 +83,14 @@ class CephWrapper(client.CephClient):
     # config-key GET calls
     ###
     def config_key_exists(self, key, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         return self.get('config-key/exists?key={0}'.format(key), **kwargs)
 
 
     def config_key_get(self, key, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         return self.get('config-key/get?key={0}'.format(key), **kwargs)
 
 
     def config_key_list(self, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         return self.get('config-key/list', **kwargs)
 
 
@@ -144,16 +98,10 @@ class CephWrapper(client.CephClient):
     # mds GET calls
     ###
     def mds_compat_show(self, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         return self.get('mds/compat/show', **kwargs)
 
 
     def mds_dump(self, epoch = None, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         if epoch is not None:
             return self.get('mds/dump?epoch={0}'.format(epoch), **kwargs)
         else:
@@ -161,8 +109,7 @@ class CephWrapper(client.CephClient):
 
 
     def mds_getmap(self, epoch = None, **kwargs):
-        supported_body_types = ['binary']
-        self._validate_body_type(kwargs['body'], supported_body_types)
+        kwargs['supported_body_types'] = ['binary']
 
         if epoch is not None:
             return self.get('mds/getmap?epoch={0}'.format(epoch), **kwargs)
@@ -171,9 +118,6 @@ class CephWrapper(client.CephClient):
 
 
     def mds_stat(self, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         return self.get('mds/stat', **kwargs)
 
 
@@ -181,44 +125,26 @@ class CephWrapper(client.CephClient):
     # osd GET calls
     ###
     def osd_blacklist_ls(self, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         return self.get('osd/blacklist/ls', **kwargs)
 
 
     def osd_crush_dump(self, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         return self.get('osd/crush/dump', **kwargs)
 
 
     def osd_crush_rule_dump(self, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         return self.get('osd/crush/rule/dump', **kwargs)
 
 
     def osd_crush_rule_list(self, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         return self.get('osd/crush/rule/list', **kwargs)
 
 
     def osd_crush_rule_ls(self, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         return self.get('osd/crush/rule/ls', **kwargs)
 
 
     def osd_dump(self, epoch = None, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         if epoch is not None:
             return self.get('osd/dump?epoch={0}'.format(epoch), **kwargs)
         else:
@@ -226,15 +152,11 @@ class CephWrapper(client.CephClient):
 
 
     def osd_find(self, id, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         return self.get('osd/find?id={0}'.format(id), **kwargs)
 
 
     def osd_getcrushmap(self, epoch = None, **kwargs):
-        supported_body_types = ['binary']
-        self._validate_body_type(kwargs['body'], supported_body_types)
+        kwargs['supported_body_types'] = ['binary']
 
         if epoch is not None:
             return self.get('osd/getcrushmap?epoch={0}'.format(epoch), **kwargs)
@@ -243,8 +165,7 @@ class CephWrapper(client.CephClient):
 
 
     def osd_getmap(self, epoch = None, **kwargs):
-        supported_body_types = ['binary']
-        self._validate_body_type(kwargs['body'], supported_body_types)
+        kwargs['supported_body_types'] = ['binary']
 
         if epoch is not None:
             return self.get('osd/getmap?epoch={0}'.format(epoch), **kwargs)
@@ -253,16 +174,10 @@ class CephWrapper(client.CephClient):
 
 
     def osd_getmaxosd(self, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         return self.get('osd/getmaxosd', **kwargs)
 
 
     def osd_ls(self, epoch = None, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         if epoch is not None:
             return self.get('osd/ls?epoch={0}'.format(epoch), **kwargs)
         else:
@@ -270,9 +185,6 @@ class CephWrapper(client.CephClient):
 
 
     def osd_lspools(self, auid = None, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         if auid is not None:
             return self.get('osd/lspools?auid={0}'.format(auid), **kwargs)
         else:
@@ -280,31 +192,19 @@ class CephWrapper(client.CephClient):
 
 
     def osd_map(self, pool, object, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         return self.get('osd/map?pool={0}&object={1}'.format(pool, object), **kwargs)
 
 
     def osd_perf(self, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         return self.get('osd/perf', **kwargs)
 
 
     def osd_pool_get(self, pool, var, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         return self.get('osd/pool/get?pool={0}&var={1}'.format(
             pool, var), **kwargs)
 
 
     def osd_pool_stats(self, name = None, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         if name is not None:
             return self.get('osd/pool/stats?name={0}'.format(name), **kwargs)
         else:
@@ -312,16 +212,10 @@ class CephWrapper(client.CephClient):
 
 
     def osd_stat(self, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         return self.get('osd/stat', **kwargs)
 
 
     def osd_tree(self, epoch = None, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         if epoch is not None:
             return self.get('osd/tree?epoch={0}'.format(epoch), **kwargs)
         else:
@@ -332,9 +226,6 @@ class CephWrapper(client.CephClient):
     # mon GET calls
     ###
     def mon_dump(self, epoch = None, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         if epoch is not None:
             return self.get('mon/dump?epoch={0}'.format(epoch), **kwargs)
         else:
@@ -342,8 +233,7 @@ class CephWrapper(client.CephClient):
 
 
     def mon_getmap(self, epoch = None, **kwargs):
-        supported_body_types = ['binary']
-        self._validate_body_type(kwargs['body'], supported_body_types)
+        kwargs['supported_body_types'] = ['binary']
 
         if epoch is not None:
             return self.get('mon/getmap?epoch={0}'.format(epoch), **kwargs)
@@ -351,16 +241,12 @@ class CephWrapper(client.CephClient):
             return self.get('mon/getmap', **kwargs)
 
     def mon_stat(self, **kwargs):
-        supported_body_types = ['text', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
+        kwargs['supported_body_types'] = ['text', 'xml']
 
         return self.get('mon/stat', **kwargs)
 
 
     def mon_status(self, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         return self.get('mon_status', **kwargs)
 
 
@@ -368,56 +254,36 @@ class CephWrapper(client.CephClient):
     # pg GET calls
     ###
     def pg_debug(self, debugop, **kwargs):
-        supported_body_types = ['text', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
+        kwargs['supported_body_types'] = ['text', 'xml']
 
         return self.get('pg/debug?debugop={0}'.format(debugop), kwargs)
 
 
     def pg_dump(self, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         return self.get('pg/dump', **kwargs)
 
 
     def pg_dump_json(self, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         return self.get('pg/dump_json', **kwargs)
 
 
     def pg_dump_pools_json(self, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         return self.get('pg/dump_pools_json', **kwargs)
 
 
     def pg_dump_stuck(self, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         return self.get('pg/dump_stuck', **kwargs)
 
 
     def pg_getmap(self, **kwargs):
-        supported_body_types = ['binary']
-        self._validate_body_type(kwargs['body'], supported_body_types)
+        kwargs['supported_body_types'] = ['binary']
 
         return self.get('pg/getmap', **kwargs)
 
 
     def pg_map(self, pgid, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         return self.get('pg/map?pgid={0}'.format(pgid), **kwargs)
 
 
     def pg_stat(self, **kwargs):
-        supported_body_types = ['text', 'json', 'xml']
-        self._validate_body_type(kwargs['body'], supported_body_types)
-
         return self.get('pg/stat', **kwargs)
