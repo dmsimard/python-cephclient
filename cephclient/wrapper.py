@@ -279,8 +279,11 @@ class CephWrapper(client.CephClient):
             return self.get('osd/lspools', **kwargs)
 
 
-    def osd_map(self, **kwargs):
-        raise exceptions.FunctionNotImplemented()
+    def osd_map(self, pool, object, **kwargs):
+        supported_body_types = ['text', 'json', 'xml']
+        self._validate_body_type(kwargs['body'], supported_body_types)
+
+        return self.get('osd/map?pool={0}&object={1}'.format(pool, object), **kwargs)
 
 
     def osd_perf(self, **kwargs):
