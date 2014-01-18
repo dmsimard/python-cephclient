@@ -76,6 +76,9 @@ class CephClient(object):
             elif kwargs['body'] is 'text':
                 kwargs['headers']['Accept'] = 'text/plain'
                 kwargs['headers']['Content-Type'] = 'text/plain'
+            elif kwargs['body'] is 'binary':
+                kwargs['headers']['Accept'] = 'application/octet-stream'
+                kwargs['headers']['Content-Type'] = 'application/octet-stream'
             else:
                 raise exceptions.UnknownRequestType()
 

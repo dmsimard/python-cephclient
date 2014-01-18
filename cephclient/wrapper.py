@@ -23,6 +23,10 @@ class CephWrapper(client.CephClient):
         super(CephWrapper, self).__init__(**params)
         self.user_agent = 'python-cephclient-wrapper'
 
+    def _validate_body_type(self, type, supported):
+        if type not in supported:
+            raise exceptions.UnsupportedBodyType
+
     ###
     # root GET calls
     ###
@@ -240,34 +244,56 @@ class CephWrapper(client.CephClient):
     # pg GET calls
     ###
     def pg_debug(self, debugop, **kwargs):
+        supported_body_types = ['text', 'xml']
+        self._validate_body_type(kwargs['body'], supported_body_types)
+
         return self.get('pg/debug?debugop={0}'.format(debugop), kwargs)
 
 
     def pg_dump(self, **kwargs):
-        raise exceptions.FunctionNotImplemented()
+        supported_body_types = ['text', 'json', 'xml']
+        self._validate_body_type(kwargs['body'], supported_body_types)
+
+        return self.get('pg/dump', **kwargs)
 
 
     def pg_dump_json(self, **kwargs):
-        raise exceptions.FunctionNotImplemented()
+        supported_body_types = ['text', 'json', 'xml']
+        self._validate_body_type(kwargs['body'], supported_body_types)
+
+        return self.get('pg/dump_json', **kwargs)
 
 
     def pg_dump_pools_json(self, **kwargs):
-        raise exceptions.FunctionNotImplemented()
+        supported_body_types = ['text', 'json', 'xml']
+        self._validate_body_type(kwargs['body'], supported_body_types)
+
+        return self.get('pg/dump_pools_json', **kwargs)
 
 
     def pg_dump_stuck(self, **kwargs):
-        raise exceptions.FunctionNotImplemented()
+        supported_body_types = ['text', 'json', 'xml']
+        self._validate_body_type(kwargs['body'], supported_body_types)
+
+        return self.get('pg/dump_stuck', **kwargs)
 
 
     def pg_getmap(self, **kwargs):
-        # Could not get this to work yet
-        raise exceptions.FunctionNotImplemented()
+        supported_body_types = ['binary']
+        self._validate_body_type(kwargs['body'], supported_body_types)
+
+        return self.get('pg/getmap', **kwargs)
 
 
-    def pg_map(self, **kwargs):
-        # Could not get this to work yet
-        raise exceptions.FunctionNotImplemented()
+    def pg_map(self, pgid, **kwargs):
+        supported_body_types = ['text', 'json', 'xml']
+        self._validate_body_type(kwargs['body'], supported_body_types)
+
+        return self.get('pg/map?pgid={0}'.format(pgid), **kwargs)
 
 
     def pg_stat(self, **kwargs):
+        supported_body_types = ['text', 'json', 'xml']
+        self._validate_body_type(kwargs['body'], supported_body_types)
+
         return self.get('pg/stat', **kwargs)
