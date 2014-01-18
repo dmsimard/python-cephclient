@@ -55,7 +55,7 @@ Instanciate CephWrapper::
 
 Do your request and specify the reponse type you are expecting.
 
-Either ``json``, ``xml`` or ``text`` (default) are available.
+Either ``json``, ``xml``, ``text`` (default) or ``binary`` are available.
 
 json::
 
@@ -90,6 +90,8 @@ xml::
       </status>
     </response>
 
+
+
 text::
 
     response, body = wrapper.get_fsid(body = 'text')
@@ -99,3 +101,8 @@ text::
 
     Response: <Response [200]>, Body:
     d5252e7d-75bc-4083-85ed-fe51fa83f62b
+
+binary::
+
+    response, body = wrapper.mon_getmap(body = 'binary')
+    # < Do something binary with 'body' >
