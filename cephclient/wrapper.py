@@ -113,6 +113,9 @@ class CephWrapper(client.CephClient):
 
 
     def mds_getmap(self, epoch = None, **kwargs):
+        supported_body_types = ['binary']
+        self._validate_body_type(kwargs['body'], supported_body_types)
+
         if epoch is not None:
             return self.get('mds/getmap?epoch={0}'.format(epoch), **kwargs)
         else:
@@ -157,14 +160,24 @@ class CephWrapper(client.CephClient):
         return self.get('osd/find?id={0}'.format(id), **kwargs)
 
 
-    def osd_getcrushmap(self, **kwargs):
-        # Could not get this to work yet
-        raise exceptions.FunctionNotImplemented()
+    def osd_getcrushmap(self, epoch = None, **kwargs):
+        supported_body_types = ['binary']
+        self._validate_body_type(kwargs['body'], supported_body_types)
+
+        if epoch is not None:
+            return self.get('osd/getcrushmap?epoch={0}'.format(epoch), **kwargs)
+        else:
+            return self.get('osd/getcrushmap', **kwargs)
 
 
-    def osd_getmap(self, **kwargs):
-        # Could not get this to work yet
-        raise exceptions.FunctionNotImplemented()
+    def osd_getmap(self, epoch = None, **kwargs):
+        supported_body_types = ['binary']
+        self._validate_body_type(kwargs['body'], supported_body_types)
+
+        if epoch is not None:
+            return self.get('osd/getmap?epoch={0}'.format(epoch), **kwargs)
+        else:
+            return self.get('osd/getmap', **kwargs)
 
 
     def osd_getmaxosd(self, **kwargs):
@@ -226,10 +239,14 @@ class CephWrapper(client.CephClient):
             return self.get('mon/dump', **kwargs)
 
 
-    def mon_getmap(self, **kwargs):
-        # Could not get this to work yet
-        raise exceptions.FunctionNotImplemented()
+    def mon_getmap(self, epoch = None, **kwargs):
+        supported_body_types = ['binary']
+        self._validate_body_type(kwargs['body'], supported_body_types)
 
+        if epoch is not None:
+            return self.get('mon/getmap?epoch={0}'.format(epoch), **kwargs)
+        else:
+            return self.get('mon/getmap', **kwargs)
 
     def mon_stat(self, **kwargs):
         supported_body_types = ['text', 'xml']
