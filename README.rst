@@ -57,16 +57,6 @@ Do your request and specify the reponse type you are expecting.
 
 Either ``json``, ``xml`` or ``text`` (default) are available.
 
-text::
-
-    response, body = wrapper.get_fsid(body = 'text')
-    print(response)
-
-    ====
-
-    d5252e7d-75bc-4083-85ed-fe51fa83f62b
-
-
 json::
 
     response, body = wrapper.get_fsid(body = 'json')
@@ -97,3 +87,13 @@ xml::
         OK
       </status>
     </response>
+
+text::
+
+    response, body = wrapper.get_fsid(body = 'text')
+    print(response)
+
+    ====
+
+    d5252e7d-75bc-4083-85ed-fe51fa83f62b
+
