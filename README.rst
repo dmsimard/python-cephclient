@@ -11,7 +11,7 @@ Client
 --------------------------------------------------
 
 The cephclient class takes care of sending calls to the API through HTTP and
-handle the responses. It supports queries for JSON, XML or plain text.
+handle the responses. It supports queries for JSON, XML, plain text or binary.
 
 Wrapper
 --------------------------------------------------
@@ -106,3 +106,18 @@ binary::
 
     response, body = wrapper.mon_getmap(body = 'binary')
     # < Do something binary with 'body' >
+
+
+RELEASE NOTES
+==================================================
+**0.1.0.2**
+
+- Implemented or fixed missing GET calls (All API GET calls are now supported)
+- Client can optionally raise an exception when requesting a unsupported body type for a provided API call
+- Client now supports binary type responses (ex: crush map, mon map, etc)
+- Improved the README (!)
+
+
+**0.1.0.1**
+
+- First public release of python-cephclient
