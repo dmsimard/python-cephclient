@@ -109,6 +109,8 @@ class CephWrapper(client.CephClient):
 
 
     def mds_getmap(self, epoch = None, **kwargs):
+        kwargs['supported_body_types'] = ['binary']
+
         if epoch is not None:
             return self.get('mds/getmap?epoch={0}'.format(epoch), **kwargs)
         else:
@@ -153,14 +155,22 @@ class CephWrapper(client.CephClient):
         return self.get('osd/find?id={0}'.format(id), **kwargs)
 
 
-    def osd_getcrushmap(self, **kwargs):
-        # Could not get this to work yet
-        raise exceptions.FunctionNotImplemented()
+    def osd_getcrushmap(self, epoch = None, **kwargs):
+        kwargs['supported_body_types'] = ['binary']
+
+        if epoch is not None:
+            return self.get('osd/getcrushmap?epoch={0}'.format(epoch), **kwargs)
+        else:
+            return self.get('osd/getcrushmap', **kwargs)
 
 
-    def osd_getmap(self, **kwargs):
-        # Could not get this to work yet
-        raise exceptions.FunctionNotImplemented()
+    def osd_getmap(self, epoch = None, **kwargs):
+        kwargs['supported_body_types'] = ['binary']
+
+        if epoch is not None:
+            return self.get('osd/getmap?epoch={0}'.format(epoch), **kwargs)
+        else:
+            return self.get('osd/getmap', **kwargs)
 
 
     def osd_getmaxosd(self, **kwargs):
@@ -181,8 +191,8 @@ class CephWrapper(client.CephClient):
             return self.get('osd/lspools', **kwargs)
 
 
-    def osd_map(self, **kwargs):
-        raise exceptions.FunctionNotImplemented()
+    def osd_map(self, pool, object, **kwargs):
+        return self.get('osd/map?pool={0}&object={1}'.format(pool, object), **kwargs)
 
 
     def osd_perf(self, **kwargs):
@@ -222,13 +232,17 @@ class CephWrapper(client.CephClient):
             return self.get('mon/dump', **kwargs)
 
 
-    def mon_getmap(self, **kwargs):
-        # Could not get this to work yet
-        raise exceptions.FunctionNotImplemented()
+    def mon_getmap(self, epoch = None, **kwargs):
+        kwargs['supported_body_types'] = ['binary']
 
+        if epoch is not None:
+            return self.get('mon/getmap?epoch={0}'.format(epoch), **kwargs)
+        else:
+            return self.get('mon/getmap', **kwargs)
 
     def mon_stat(self, **kwargs):
-        # TODO: Seems broken ? Returns null.
+        kwargs['supported_body_types'] = ['text', 'xml']
+
         return self.get('mon/stat', **kwargs)
 
 
@@ -240,33 +254,43 @@ class CephWrapper(client.CephClient):
     # pg GET calls
     ###
     def pg_debug(self, debugop, **kwargs):
+        kwargs['supported_body_types'] = ['text', 'xml']
+
         return self.get('pg/debug?debugop={0}'.format(debugop), kwargs)
 
 
-    def pg_dump(self, **kwargs):
-        raise exceptions.FunctionNotImplemented()
+    def pg_dump(self, dumpcontents = None, **kwargs):
+        if dumpcontents is not None:
+            return self.get('pg/dump?dumpcontents={0}'.format(dumpcontents), **kwargs)
+        else:
+            return self.get('pg/dump', **kwargs)
 
-
-    def pg_dump_json(self, **kwargs):
-        raise exceptions.FunctionNotImplemented()
+    def pg_dump_json(self, dumpcontents = None, **kwargs):
+        if dumpcontents is not None:
+            return self.get('pg/dump_json?dumpcontents={0}'.format(dumpcontents), **kwargs)
+        else:
+            return self.get('pg/dump_json', **kwargs)
 
 
     def pg_dump_pools_json(self, **kwargs):
-        raise exceptions.FunctionNotImplemented()
+        return self.get('pg/dump_pools_json', **kwargs)
 
 
-    def pg_dump_stuck(self, **kwargs):
-        raise exceptions.FunctionNotImplemented()
+    def pg_dump_stuck(self, stuckops = None, **kwargs):
+        if stuckops is not None:
+            return self.get('pg/dump_stuck?stuckops={0}'.format(stuckops), **kwargs)
+        else:
+            return self.get('pg/dump_stuck', **kwargs)
 
 
     def pg_getmap(self, **kwargs):
-        # Could not get this to work yet
-        raise exceptions.FunctionNotImplemented()
+        kwargs['supported_body_types'] = ['binary']
+
+        return self.get('pg/getmap', **kwargs)
 
 
-    def pg_map(self, **kwargs):
-        # Could not get this to work yet
-        raise exceptions.FunctionNotImplemented()
+    def pg_map(self, pgid, **kwargs):
+        return self.get('pg/map?pgid={0}'.format(pgid), **kwargs)
 
 
     def pg_stat(self, **kwargs):

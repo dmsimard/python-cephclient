@@ -76,14 +76,26 @@ class CephClient(object):
             elif kwargs['body'] is 'text':
                 kwargs['headers']['Accept'] = 'text/plain'
                 kwargs['headers']['Content-Type'] = 'text/plain'
+            elif kwargs['body'] is 'binary':
+                kwargs['headers']['Accept'] = 'application/octet-stream'
+                kwargs['headers']['Content-Type'] = 'application/octet-stream'
             else:
-                raise exceptions.UnknownRequestType()
-
-            del kwargs['body']
+                raise exceptions.UnsupportedRequestType()
         except KeyError:
             # Default if body type is unspecified is text/plain
             kwargs['headers']['Accept'] = 'text/plain'
             kwargs['headers']['Content-Type'] = 'text/plain'
+
+        # Optionally verify if requested body type is supported
+        try:
+            if kwargs['body'] not in kwargs['supported_body_types']:
+                raise exceptions.UnsupportedBodyType()
+            else:
+                del kwargs['supported_body_types']
+        except KeyError:
+            pass
+
+        del kwargs['body']
 
         self.log.debug("{0} URL: {1}{2} - {3}".format(method,
                                                         self.endpoint,

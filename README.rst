@@ -11,7 +11,7 @@ Client
 --------------------------------------------------
 
 The cephclient class takes care of sending calls to the API through HTTP and
-handle the responses. It supports queries for JSON, XML or plain text.
+handle the responses. It supports queries for JSON, XML, plain text or binary.
 
 Wrapper
 --------------------------------------------------
@@ -55,25 +55,16 @@ Instanciate CephWrapper::
 
 Do your request and specify the reponse type you are expecting.
 
-Either ``json``, ``xml`` or ``text`` (default) are available.
-
-text::
-
-    response, body = wrapper.get_fsid(body = 'text')
-    print(response)
-
-    ====
-
-    d5252e7d-75bc-4083-85ed-fe51fa83f62b
-
+Either ``json``, ``xml``, ``text`` (default) or ``binary`` are available.
 
 json::
 
     response, body = wrapper.get_fsid(body = 'json')
-    print(json.dumps(body, indent=4, separators=(',', ': ')))
+    print('Response: {0}, Body:\n{1}'.format(response, json.dumps(body, indent=4, separators=(',', ': '))))
 
     ====
 
+    Response: <Response [200]>, Body:
     {
         "status": "OK",
         "output": {
@@ -85,10 +76,11 @@ json::
 xml::
 
     response, body = wrapper.get_fsid(body = 'xml')
-    print(etree.tostring(body, pretty_print=True))
+    print('Response: {0}, Body:\n{1}'.format(reponse, etree.tostring(body, pretty_print=True)))
 
     ====
 
+    Response: <Response [200]>, Body:
     <response>
       <output>
         <fsid><fsid>d5252e7d-75bc-4083-85ed-fe51fa83f62b</fsid></fsid>
@@ -97,3 +89,35 @@ xml::
         OK
       </status>
     </response>
+
+
+
+text::
+
+    response, body = wrapper.get_fsid(body = 'text')
+    print('Response: {0}, Body:\n{1}'.format(response, body))
+
+    ====
+
+    Response: <Response [200]>, Body:
+    d5252e7d-75bc-4083-85ed-fe51fa83f62b
+
+binary::
+
+    response, body = wrapper.mon_getmap(body = 'binary')
+    # < Do something binary with 'body' >
+
+
+RELEASE NOTES
+==================================================
+**0.1.0.2**
+
+- Implemented or fixed missing GET calls (All API GET calls that are not under the '/tell' namespace are now supported)
+- Client can optionally raise an exception when requesting a unsupported body type for a provided API call (ex: requesting json through the wrapper for a call that is known to only return binary will raise an exception)
+- Client now supports binary type responses (ex: crush map, mon map, etc)
+- Improved the README (!)
+
+
+**0.1.0.1**
+
+- First public release of python-cephclient
