@@ -60,10 +60,11 @@ Either ``json``, ``xml`` or ``text`` (default) are available.
 json::
 
     response, body = wrapper.get_fsid(body = 'json')
-    print(json.dumps(body, indent=4, separators=(',', ': ')))
+    print('Response: {0}, Body:\n{1}'.format(response, json.dumps(body, indent=4, separators=(',', ': '))))
 
     ====
 
+    Response: <Response [200]>, Body:
     {
         "status": "OK",
         "output": {
@@ -75,10 +76,11 @@ json::
 xml::
 
     response, body = wrapper.get_fsid(body = 'xml')
-    print(etree.tostring(body, pretty_print=True))
+    print('Response: {0}, Body:\n{1}'.format(reponse, etree.tostring(body, pretty_print=True)))
 
     ====
 
+    Response: <Response [200]>, Body:
     <response>
       <output>
         <fsid><fsid>d5252e7d-75bc-4083-85ed-fe51fa83f62b</fsid></fsid>
@@ -91,8 +93,9 @@ xml::
 text::
 
     response, body = wrapper.get_fsid(body = 'text')
-    print(body)
+    print('Response: {0}, Body:\n{1}'.format(response, body))
 
     ====
 
+    Response: <Response [200]>, Body:
     d5252e7d-75bc-4083-85ed-fe51fa83f62b
