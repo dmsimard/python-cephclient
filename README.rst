@@ -113,7 +113,7 @@ RELEASE NOTES
 **0.1.0.2**
 
 - Implemented or fixed missing GET calls (All API GET calls are now supported)
-- Client can optionally raise an exception when requesting a unsupported body type for a provided API call
+- Client can optionally raise an exception when requesting a unsupported body type for a provided API call (ex: requesting json through the wrapper for a call that is known to only return binary will raise an exception)
 - Client now supports binary type responses (ex: crush map, mon map, etc)
 - Improved the README (!)
 
