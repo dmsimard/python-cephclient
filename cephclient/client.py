@@ -60,6 +60,12 @@ class CephClient(object):
 
 
     def _request(self, url, method, **kwargs):
+        if self.timeout is not None:
+            kwargs.setdefault('timeout', self.timeout)
+
+        kwargs.setdefault('headers', kwargs.get('headers', {}))
+        kwargs['headers']['User-Agent'] = self.user_agent
+
         try:
             if kwargs['body'] is 'json':
                 kwargs['headers']['Accept'] = 'application/json'
@@ -90,12 +96,6 @@ class CephClient(object):
             pass
 
         del kwargs['body']
-
-        if self.timeout is not None:
-            kwargs.setdefault('timeout', self.timeout)
-
-        kwargs.setdefault('headers', kwargs.get('headers', {}))
-        kwargs['headers']['User-Agent'] = self.user_agent
 
         self.log.debug("{0} URL: {1}{2} - {3}".format(method,
                                                         self.endpoint,
