@@ -295,3 +295,26 @@ class CephWrapper(client.CephClient):
 
     def pg_stat(self, **kwargs):
         return self.get('pg/stat', **kwargs)
+
+
+    ###
+    # tell GET calls
+    ###
+    def tell_debug_dump_missing(self, id, filename, **kwargs):
+        return self.get('/tell/{0}/debug_dump_missing?filename={1}'.format(id, filename), **kwargs)
+
+
+    def tell_dump_pg_recovery_stats(self, id, **kwargs):
+        return self.get('/tell/{0}/dump_pg_recovery_stats'.format(id), **kwargs)
+
+
+    def tell_list_missing(self, id, offset, **kwargs):
+        return self.get('/tell/{0}/list_missing?offset={1}'.format(id, offset), **kwargs)
+
+
+    def tell_query(self, id, **kwargs):
+        return self.get('/tell/{0}/query'.format(id), **kwargs)
+
+
+    def tell_version(self, id, **kwargs):
+        return self.get('/tell/{0}/version'.format(id), **kwargs)
