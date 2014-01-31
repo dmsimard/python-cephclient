@@ -44,8 +44,11 @@ class CephWrapper(client.CephClient):
     def quorum_status(self, **kwargs):
         return self.get('quorum_status', **kwargs)
 
-    def report(self, **kwargs):
-        return self.get('report', **kwargs)
+    def report(self, tags=None, **kwargs):
+        if tags is not None:
+            return self.get('report?tags={0}'.format(tags), **kwargs)
+        else:
+            return self.get('report', **kwargs)
 
     def status(self, **kwargs):
         return self.get('status', **kwargs)
