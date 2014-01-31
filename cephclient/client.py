@@ -39,6 +39,7 @@ except ImportError:
 
 import cephclient.exceptions as exceptions
 
+
 class CephClient(object):
 
     def __init__(self, **params):
@@ -57,7 +58,6 @@ class CephClient(object):
             self.timeout = None
 
         self.http = requests.Session()
-
 
     def _request(self, url, method, **kwargs):
         if self.timeout is not None:
@@ -122,22 +122,17 @@ class CephClient(object):
 
         return resp, body
 
-
     def get(self, url, **kwargs):
         return self._request(url, 'GET', **kwargs)
-
 
     def post(self, url, **kwargs):
         return self._request(url, 'POST', **kwargs)
 
-
     def put(self, url, **kwargs):
         return self._request(url, 'PUT', **kwargs)
 
-
     def delete(self, url, **kwargs):
         return self._request(url, 'DELETE', **kwargs)
-
 
     def log_wrapper(self):
         """
@@ -154,8 +149,9 @@ class CephClient(object):
 
         # Set the log format.
         stream = logging.StreamHandler()
-        logformat = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                                      datefmt='%b %d %H:%M:%S')
+        logformat = logging.Formatter(
+            '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+            datefmt='%b %d %H:%M:%S')
         stream.setFormatter(logformat)
 
         log.addHandler(stream)
