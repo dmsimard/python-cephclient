@@ -110,6 +110,11 @@ binary::
 
 RELEASE NOTES
 ==================================================
+**0.1.0.3**
+
+- GET API calls under '/tell' have been implemented.
+- GET API calls are are in root (/) have been renamed to be coherent with incoming future development
+
 **0.1.0.2**
 
 - Implemented or fixed missing GET calls (All API GET calls that are not under the '/tell' namespace are now supported)
