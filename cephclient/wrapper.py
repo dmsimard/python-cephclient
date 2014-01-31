@@ -53,8 +53,11 @@ class CephWrapper(client.CephClient):
     ###
     # auth GET calls
     ###
-    def auth_export(self, entity, **kwargs):
-        return self.get('auth/export?entity={0}'.format(entity), **kwargs)
+    def auth_export(self, entity=None, **kwargs):
+        if entity is not None:
+            return self.get('auth/export?entity={0}'.format(entity), **kwargs)
+        else:
+            return self.get('auth/export', **kwargs)
 
     def auth_get(self, entity, **kwargs):
         return self.get('auth/get?entity={0}'.format(entity), **kwargs)
