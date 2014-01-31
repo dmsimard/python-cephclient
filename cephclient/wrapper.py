@@ -26,28 +26,28 @@ class CephWrapper(client.CephClient):
     ###
     # root GET calls
     ###
-    def get_df(self, detail=None, **kwargs):
+    def df(self, detail=None, **kwargs):
         if detail is not None:
             return self.get('df?detail={0}'.format(detail), **kwargs)
         else:
             return self.get('df', **kwargs)
 
-    def get_fsid(self, **kwargs):
+    def fsid(self, **kwargs):
         return self.get('fsid', **kwargs)
 
-    def get_health(self, detail=None, **kwargs):
+    def health(self, detail=None, **kwargs):
         if detail is not None:
             return self.get('health?detail={0}'.format(detail), **kwargs)
         else:
             return self.get('health', **kwargs)
 
-    def get_quorum_status(self, **kwargs):
+    def quorum_status(self, **kwargs):
         return self.get('quorum_status', **kwargs)
 
-    def get_report(self, **kwargs):
+    def report(self, **kwargs):
         return self.get('report', **kwargs)
 
-    def get_status(self, **kwargs):
+    def status(self, **kwargs):
         return self.get('status', **kwargs)
 
     ###
