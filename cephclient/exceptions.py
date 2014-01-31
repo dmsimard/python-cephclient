@@ -15,6 +15,7 @@
 #   Author: David Moreau Simard <moi@dmsimard.com>
 #
 
+
 class FunctionNotImplemented(Exception):
     """
     Function not yet finished
@@ -28,7 +29,8 @@ class UnsupportedRequestType(Exception):
     If a requested body type is not mapped
     """
     def __str__(self):
-        return "Unknown request type. Requests available: 'json', 'xml', 'text'."
+        return "Unknown request type."
+
 
 class UnsupportedBodyType(Exception):
     """
