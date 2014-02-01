@@ -43,7 +43,9 @@ Install the package through pip::
 
     pip install python-cephclient
 
-Installation does not work ? python-cephclient depends on lxml which itself
+Installation does not work ?
+
+python-cephclient depends on lxml which itself
 depends on some packages. To install lxml's dependencies on Ubuntu::
 
     apt-get install python-dev libxml2-dev libxslt-dev
