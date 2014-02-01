@@ -10,7 +10,6 @@ setup(
     description='A client library in python for the Ceph REST API.',
     long_description=open('README.rst', 'rt').read(),
     license='Apache License, Version 2.0',
-    bugtrack_url='https://github.com/dmsimard/python-cephclient/issues',
     keywords='ceph rest api ceph-rest-api client library',
     install_requires=['lxml>=3.2.5'],
     classifiers=[
