@@ -43,10 +43,15 @@ Install the package through pip::
 
     pip install python-cephclient
 
+Installation does not work ? python-cephclient depends on lxml which itself
+depends on some packages. To install lxml's dependencies on Ubuntu::
+
+    apt-get install python-dev libxml2-dev libxslt-dev
+
 
 Instanciate CephWrapper::
 
-    from cephclient import *
+    from cephclient.wrapper import *
 
     wrapper = CephWrapper(
         endpoint = 'http://apiserver:5000/api/v0.1/',
