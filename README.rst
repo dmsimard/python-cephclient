@@ -110,6 +110,10 @@ binary::
 
 RELEASE NOTES
 ==================================================
+**0.1.0.4**
+
+- Fix setup and PyPi installation
+
 **0.1.0.3**
 
 - GET API calls under '/tell' have been implemented.
