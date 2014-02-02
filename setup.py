@@ -11,7 +11,7 @@ setup(
     long_description=open('README.rst', 'rt').read(),
     license='Apache License, Version 2.0',
     keywords='ceph rest api ceph-rest-api client library',
-    install_requires=['lxml>=3.2.5'],
+    install_requires=['lxml>=3.2.5', 'requests>=2.2.1'],
     classifiers=[
         'License :: OSI Approved :: Apache Software License',
         'Development Status :: 3 - Alpha',
