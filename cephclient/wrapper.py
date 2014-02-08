@@ -110,6 +110,66 @@ class CephWrapper(client.CephClient):
         return self.get('mds/stat', **kwargs)
 
     ###
+    # mds PUT calls
+    ###
+    def mds_add_data_pool(self, pool, **kwargs):
+        return self.put('mds/add_data_pool?pool={0}'.format(pool), **kwargs)
+
+    def mds_cluster_down(self, **kwargs):
+        return self.put('mds/cluster_down', **kwargs)
+
+    def mds_cluster_up(self, **kwargs):
+        return self.put('mds/cluster_up', **kwargs)
+
+    def mds_compat_rm_compat(self, feature, **kwargs):
+        return self.put('mds/compat/rm_compat?feature={0}'.format(feature), **kwargs)
+
+    def mds_compat_rm_incompat(self, feature, **kwargs):
+        return self.put('mds/compat/rm_incompat?feature={0}'.format(feature), **kwargs)
+
+    def mds_deactivate(self, who, **kwargs):
+        return self.put('mds/deactivate?who={0}'.format(who), **kwargs)
+
+    def mds_fail(self, who, **kwargs):
+        return self.put('mds/fail?who={0}'.format(who), **kwargs)
+
+    def mds_newfs(self, metadata, data, sure, **kwargs):
+        return self.put('mds/newfs?metadata={0}&data={1}&sure={2}'.format(metadata, data, sure), **kwargs)
+
+    def mds_remove_data_pool(self, pool, **kwargs):
+        return self.put('mds/remove_data_pool?pool={0}'.format(pool), **kwargs)
+
+    def mds_rm(self, gid, who, **kwargs):
+        return self.put('mds/rm?gid={0}&who={1}'.format(gid, who), **kwargs)
+
+    def mds_rmfailed(self, who, **kwargs):
+        return self.put('mds/rmfailed?who={0}'.format(who), **kwargs)
+
+    def mds_set_allow_new_snaps(self, sure, **kwargs):
+        """
+        mds/set?key=allow_new_snaps&sure=
+        """
+        raise exceptions.FunctionNotImplemented()
+
+    def mds_set_max_mds(self, maxmds, **kwargs):
+        return self.put('mds/set_max_mds?maxmds={0}'.format(maxmds), **kwargs)
+
+    def mds_setmap(self, epoch, **kwargs):
+        return self.put('mds/setmap?epoch={0}'.format(epoch), **kwargs)
+
+    def mds_stop(self, who, **kwargs):
+        return self.put('mds/stop?who={0}'.format(who), **kwargs)
+
+    def mds_tell(self, who, args, **kwargs):
+        return self.put('mds/tell?who={0}&args={1}'.format(who, args), **kwargs)
+
+    def mds_unset_allow_new_snaps(self, sure, **kwargs):
+        """
+        mds/unset?key=allow_new_snaps&sure=
+        """
+        raise exceptions.FunctionNotImplemented()
+
+    ###
     # osd GET calls
     ###
     def osd_blacklist_ls(self, **kwargs):
