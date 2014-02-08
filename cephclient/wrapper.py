@@ -54,6 +54,32 @@ class CephWrapper(client.CephClient):
         return self.get('status', **kwargs)
 
     ###
+    # root PUT calls
+    ###
+    def compact(self, **kwargs):
+        return self.put('compact', **kwargs)
+
+    def heap(self, heapcmd, **kwargs):
+        return self.put('heap?heapcmd={0}'.format(heapcmd), **kwargs)
+
+    def injectargs(self, injected_args, **kwargs):
+        return self.put('injectargs?injected_args={0}'.format(injected_args),
+                        **kwargs)
+
+    def log(self, logtext, **kwargs):
+        return self.put('log?logtext={0}'.format(logtext), **kwargs)
+
+    def quorum(self, quorumcmd, **kwargs):
+        return self.put('quorum?quorumcmd={0}'.format(quorumcmd), **kwargs)
+
+    def scrub(self, **kwargs):
+        return self.put('scrub', **kwargs)
+
+    def tell(self, target, args, **kwargs):
+        return self.put('tell?target={0}&args={1}'.format(target,args),
+                        **kwargs)
+
+    ###
     # auth GET calls
     ###
     def auth_export(self, entity=None, **kwargs):
