@@ -75,6 +75,63 @@ class CephWrapper(client.CephClient):
         return self.get('auth/print-key?entity={0}'.format(entity), **kwargs)
 
     ###
+    # auth PUT calls
+    ###
+    """
+    caps dictionary format:
+    caps = {
+        'mon': 'allow rwx',
+        'osd': 'allow *',
+        ...
+    }
+    """
+    def auth_add(self, entity, caps={}, file=None, **kwargs):
+        # XXX-TODO: Implement file input
+        caps_expanded = list()
+        if caps:
+            for key in caps:
+                permissions = caps[key].replace(' ', '+')
+                caps_expanded.append('&caps={0}&caps={1}'.format(key, permissions))
+
+        return self.put('auth/add?entity={0}{1}'.format(entity, ''.join(caps_expanded)), **kwargs)
+
+    def auth_caps(self, entity, caps={}, **kwargs):
+        caps_expanded = list()
+        if caps:
+            for key in caps:
+                permissions = caps[key].replace(' ', '+')
+                caps_expanded.append('&caps={0}&caps={1}'.format(key, permissions))
+
+        return self.put('auth/caps?entity={0}{1}'.format(entity, ''.join(caps_expanded)), **kwargs)
+
+    def auth_del(self, entity, **kwargs):
+        return self.put('auth/del?entity={0}'.format(entity), **kwargs)
+
+    def auth_get_or_create(self, entity, caps={}, file=None, **kwargs):
+        # XXX-TODO: Implement file input
+        caps_expanded = list()
+        if caps:
+            for key in caps:
+                permissions = caps[key].replace(' ', '+')
+                caps_expanded.append('&caps={0}&caps={1}'.format(key, permissions))
+
+        return self.put('auth/get-or-create?entity={0}{1}'.format(entity, ''.join(caps_expanded)), **kwargs)
+
+    def auth_get_or_create_key(self, entity, caps={}, **kwargs):
+        # XXX-TODO: Implement file input
+        caps_expanded = list()
+        if caps:
+            for key in caps:
+                permissions = caps[key].replace(' ', '+')
+                caps_expanded.append('&caps={0}&caps={1}'.format(key, permissions))
+
+        return self.put('auth/get-or-create-key?entity={0}{1}'.format(entity, ''.join(caps_expanded)), **kwargs)
+
+    def auth_import(self, file):
+        # XXX-TODO: Implement file input
+        raise exceptions.FunctionNotImplemented()
+
+    ###
     # config-key GET calls
     ###
     def config_key_exists(self, key, **kwargs):
