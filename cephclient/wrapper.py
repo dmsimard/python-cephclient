@@ -227,6 +227,40 @@ class CephWrapper(client.CephClient):
         raise exceptions.FunctionNotImplemented()
 
     ###
+    # mon GET calls
+    ###
+    def mon_dump(self, epoch=None, **kwargs):
+        if epoch is not None:
+            return self.get('mon/dump?epoch={0}'.format(epoch), **kwargs)
+        else:
+            return self.get('mon/dump', **kwargs)
+
+    def mon_getmap(self, epoch=None, **kwargs):
+        kwargs['supported_body_types'] = ['binary']
+
+        if epoch is not None:
+            return self.get('mon/getmap?epoch={0}'.format(epoch), **kwargs)
+        else:
+            return self.get('mon/getmap', **kwargs)
+
+    def mon_stat(self, **kwargs):
+        kwargs['supported_body_types'] = ['text', 'xml']
+
+        return self.get('mon/stat', **kwargs)
+
+    def mon_status(self, **kwargs):
+        return self.get('mon_status', **kwargs)
+
+    ###
+    # mon PUT calls
+    ###
+    def mon_add(self, name, addr, **kwargs):
+        return self.put('mon/add?name={0}&addr={1}'.format(name, addr), **kwargs)
+
+    def mon_remove(self, name, **kwargs):
+        return self.put('mon/remove?name={0}'.format(name), **kwargs)
+
+    ###
     # osd GET calls
     ###
     def osd_blacklist_ls(self, **kwargs):
@@ -309,31 +343,6 @@ class CephWrapper(client.CephClient):
             return self.get('osd/tree?epoch={0}'.format(epoch), **kwargs)
         else:
             return self.get('osd/tree', **kwargs)
-
-    ###
-    # mon GET calls
-    ###
-    def mon_dump(self, epoch=None, **kwargs):
-        if epoch is not None:
-            return self.get('mon/dump?epoch={0}'.format(epoch), **kwargs)
-        else:
-            return self.get('mon/dump', **kwargs)
-
-    def mon_getmap(self, epoch=None, **kwargs):
-        kwargs['supported_body_types'] = ['binary']
-
-        if epoch is not None:
-            return self.get('mon/getmap?epoch={0}'.format(epoch), **kwargs)
-        else:
-            return self.get('mon/getmap', **kwargs)
-
-    def mon_stat(self, **kwargs):
-        kwargs['supported_body_types'] = ['text', 'xml']
-
-        return self.get('mon/stat', **kwargs)
-
-    def mon_status(self, **kwargs):
-        return self.get('mon_status', **kwargs)
 
     ###
     # pg GET calls
