@@ -12,7 +12,8 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
-#   Author: David Moreau Simard <moi@dmsimard.com>
+#   Authors: David Moreau Simard <moi@dmsimard.com>
+#            Donald Talton <donald@thoughtstorm.net>
 #
 
 import cephclient.client as client
@@ -369,6 +370,137 @@ class CephWrapper(client.CephClient):
             return self.get('osd/tree?epoch={0}'.format(epoch), **kwargs)
         else:
             return self.get('osd/tree', **kwargs)
+
+    ###
+    # osd PUT calls
+    ###
+    def osd_blacklist(self, blacklistop, addr, expire, **kwargs):
+        return self.put('osd/blacklist?blacklistop={0}&addr={1}&expire={2}'
+                         .format(blacklistop, addr, expire), **kwargs)
+
+    def osd_create(self, uuid, **kwargs):
+        return self.put('osd/create?uuid={0}'.format(uuid), **kwargs)
+
+    def osd_crush_add(self, id, weight, args, **kwargs):
+        return self.put('osd/crush/add?id={0}&weight={1}&args={2}'.format(id, weight, args), **kwargs)
+
+    def osd_crush_add_bucket(self, name, type, **kwargs):
+        return self.put('osd/crush/add-bucket?name={0}&type={1}'.format(name, type), **kwargs)
+
+    def osd_crush_create_or_move(self, id, weight, args, **kwargs):
+        return self.put('osd/crush/create-or-move?id={0}&weight={1}&args={2}'.format(id, weight, args), **kwargs)
+
+    def osd_crush_link(self, name, args, **kwargs):
+        return self.put('osd/crush/link?name={0}&args={2}'.format(name, args), **kwargs)
+
+    def osd_crush_move(self, name, args, **kwargs):
+        return self.put('osd/crush/move?name={0}&args={1}'.format(name, args), **kwargs)
+
+    def osd_crush_remove(self, name, ancestor, **kwargs):
+        return self.put('osd/crush/remove?name={0}&ancestor={1}'.format(name, ancestor), **kwargs)
+
+    def osd_crush_reweight(self, name, weight, **kwargs):
+        return self.put('osd/crush/reweight?name={0}&weight={1}'.format(name, weight), **kwargs)
+
+    def osd_crush_rm(self, name, ancestor, **kwargs):
+        return self.put('osd/crush/rm?name={0}&ancestor={1}'.format(name, ancestor), **kwargs)
+
+    def osd_crush_rule_create_simple(self, name, root, type, **kwargs):
+        return self.put('osd/crush/rule/create-simple?name={0}&root={1}&type={2}'.format(name, root, type), **kwargs)
+
+    def osd_crush_rule_rm(self, name, **kwargs):
+        return self.put('osd/crush/rule/rm?name={0}'.format(name), **kwargs)
+
+    def osd_crush_set(self, id, name, weight, args, **kwargs):
+        return self.put('osd/crush/set?id={0}&weight={1}&args={2}'.format(id, name, weight, args), **kwargs)
+
+    def osd_crush_tunables(self, profile, **kwargs):
+        return self.put('osd/crush/tunables?profile={0}'.format(profile), **kwargs)
+
+    def osd_crush_unlink(self, name, ancestor, **kwargs):
+        return self.put('osd/crush/unlink?name={0}&ancestor={1}'.format(name, ancestor), **kwargs)
+
+    def osd_deep_scrub(self, who, **kwargs):
+        return self.put('osd/deep-scrub?who={0}'.format(who), **kwargs)
+
+    def osd_down(self, ids, **kwargs):
+        return self.put('osd/down?ids={0}'.format(ids), **kwargs)
+
+    def osd_in(self, ids, **kwargs):
+        return self.put('osd/in?ids={0}'.format(ids), **kwargs)
+
+    def osd_lost(self, id, sure, **kwargs):
+        return self.put('osd/lost?id={0}&sure={1}'.format(id, sure), **kwargs)
+
+    def osd_out(self, ids, **kwargs):
+        return self.put('osd/out?ids={0}'.format(ids), **kwargs)
+
+    def osd_pool_create(self, pool, pg_num, pgp_num, properties, **kwargs):
+        return self.put('osd/pool/create?pool={0}&pg_num={1}&pgp_num={2}&properties={3}'
+                         .format(pool, pg_num, pgp_num, properties), **kwargs)
+
+    def osd_pool_delete(self, pool, sure, **kwargs):
+        return self.put('osd/pool/delete?pool={0}&sure={1}'.format(pool, sure), **kwargs)
+
+    def osd_pool_param(self, pool, var, **kwargs):
+        return self.put('osd/pool/get?pool={0}&var={1}'.format(pool, var), **kwargs)
+
+    def osd_pool_mksnap(self, pool, snap, **kwargs):
+        return self.put('osd/pool/mksnap?pool={0}&snap={1}'.format(pool, snap), **kwargs)
+
+    def osd_pool_rename(self, srcpool, destpool, **kwargs):
+        return self.put('osd/pool/rename?srcpool={0}&destpool={1}'.format(srcpool, destpool), **kwargs)
+
+    def osd_pool_rmsnap(self, pool, snap, **kwargs):
+        return self.put('osd/pool/rmsnap?pool={0}&snap={1}'.format(pool, snap), **kwargs)
+
+    def osd_set_pool_param(self, pool, var, **kwargs):
+        return self.put('osd/pool/set?pool={0}&var={1}'.format(pool, var), **kwargs)
+
+    def osd_set_pool_quota(self, pool, field, **kwargs):
+        return self.put('osd/pool/set-quota?pool={0}&field={1}'.format(pool, field), **kwargs)
+
+    def osd_repait(self, who, **kwargs):
+        return self.put('osd/repair?who={0}'.format(pool, who), **kwargs)
+
+    def osd_reweight(self, id, weight, **kwargs):
+        return self.put('osd/reweight?id={0}&weight={1}'.format(id, weight), **kwargs)
+
+    def osd_reweight_by_utilization(self, oload, **kwargs):
+        return self.put('osd/reweight-by-utilization?oload={0}'.format(oload), **kwargs)
+
+    def osd_remove(self, ids, **kwargs):
+        return self.put('osd/rm?ids={0}'.format(ids), **kwargs)
+
+    def osd_scrub(self, who, **kwargs):
+        return self.put('osd/scrub?who={0}'.format(who), **kwargs)
+
+    def osd_set_key(self, key, **kwargs):
+        return self.put('osd/set?key={0}'.format(key), **kwargs)
+
+    def osd_setmaxosd(self, newmax, **kwargs):
+        return self.put('osd/setmaxosd?newmax={0}'.format(newmax), **kwargs)
+
+    def osd_thrash(self, num_epochs, **kwargs):
+        return self.put('osd/thrash?num_epochs={0}'.format(num_epochs), **kwargs)
+
+    def osd_tier_add(self, pool, tierpool, **kwargs):
+        return self.put('osd/tier/add?pool={0}&tierpool={1}'.format(pool, tierpool), **kwargs)
+
+    def osd_tier_cachemode(self, pool, mode, **kwargs):
+        return self.put('osd/tier/cache-mode?pool={0}&mode={1}'.format(pool, mode), **kwargs)
+
+    def osd_tier_remove(self, pool, tierpool, **kwargs):
+        return self.put('osd/tier/remove?pool={0}&tierpool={1}'.format(pool, tierpool), **kwargs)
+
+    def osd_tier_remove_overlay(self, pool, **kwargs):
+        return self.put('osd/tier/remove-overlay?pool={0}'.format(pool), **kwargs)
+
+    def osd_tier_set_overlay(self, pool, overlaypool, **kwargs):
+        return self.put('osd/tier/set-overlay?pool={0}&overlaypool={1}'.format(pool, overlaypool), **kwargs)
+
+    def osd_unset(self, key, **kwargs):
+        return self.put('osd/unset?key={0}'.format(key), **kwargs)  
 
     ###
     # pg GET calls
