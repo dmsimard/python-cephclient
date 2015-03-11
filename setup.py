@@ -14,7 +14,7 @@ setup(
     install_requires=['lxml>=3.2.5', 'requests>=2.2.1'],
     classifiers=[
         'License :: OSI Approved :: Apache Software License',
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'Intended Audience :: System Administrators',
         'Intended Audience :: Information Technology',
