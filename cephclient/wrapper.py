@@ -535,7 +535,7 @@ class CephWrapper(client.CephClient):
         return self.put('osd/pool/set-quota?pool={0}&field={1}'
                         .format(pool, field), **kwargs)
 
-    def osd_repait(self, who, **kwargs):
+    def osd_repair(self, pool, who, **kwargs):
         return self.put('osd/repair?who={0}'
                         .format(pool, who), **kwargs)
 
