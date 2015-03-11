@@ -97,10 +97,8 @@ class CephClient(object):
 
         del kwargs['body']
 
-        self.log.debug("{0} URL: {1}{2} - {3}".format(method,
-                                                        self.endpoint,
-                                                        url,
-                                                        str(kwargs)))
+        self.log.debug("{0} URL: {1}{2} - {3}"
+                       .format(method, self.endpoint, url, str(kwargs)))
 
         resp = self.http.request(
             method,
@@ -144,7 +142,7 @@ class CephClient(object):
         try:
             debug = self.params["debug"]
             log.setLevel(logging.DEBUG)
-        except KeyError as e:
+        except KeyError:
             log.setLevel(logging.INFO)
 
         # Set the log format.
