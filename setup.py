@@ -3,7 +3,7 @@ from setuptools import setup
 setup(
     name='python-cephclient',
     packages=['cephclient'],
-    version='0.1.0.4',
+    version='0.1.0.5',
     url='https://github.com/dmsimard/python-cephclient',
     author='David Moreau Simard',
     author_email='moi@dmsimard.com',

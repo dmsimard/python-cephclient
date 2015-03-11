@@ -117,6 +117,19 @@ binary::
 
 RELEASE NOTES
 ==================================================
+**0.1.0.5**
+
+dmsimard:
+- Add missing dependency on the requests library
+- Some PEP8 and code standardization cleanup
+- Add root "PUT" methods
+- Add mon "PUT" methods
+- Add mds "PUT" methods
+- Add auth "PUT" methods
+
+Donald Talton:
+- Add osd "PUT" methods
+
 **0.1.0.4**
 
 - Fix setup and PyPi installation
