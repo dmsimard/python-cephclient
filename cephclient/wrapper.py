@@ -13,7 +13,7 @@
 #   limitations under the License.
 #
 #   Authors: David Moreau Simard <moi@dmsimard.com>
-#            Donald Talton <donald@thoughtstorm.net>
+#            Donald Talton <don.talton@gmail.com>
 #
 
 import cephclient.client as client
