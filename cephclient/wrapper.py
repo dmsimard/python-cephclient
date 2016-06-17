@@ -502,10 +502,10 @@ class CephWrapper(client.CephClient):
         return self.put('osd/out?ids={0}'
                         .format(ids), **kwargs)
 
-    def osd_pool_create(self, pool, pg_num, pgp_num, properties, **kwargs):
+    def osd_pool_create(self, pool, pg_num, pgp_num, **kwargs):
         return self.put(
-            'osd/pool/create?pool={0}&pg_num={1}&pgp_num={2}&properties={3}'
-            .format(pool, pg_num, pgp_num, properties), **kwargs)
+            'osd/pool/create?pool={0}&pg_num={1}&pgp_num={2}'
+            .format(pool, pg_num, pgp_num), **kwargs)
 
     def osd_pool_delete(self, pool, sure, **kwargs):
         return self.put('osd/pool/delete?pool={0}&sure={1}'
